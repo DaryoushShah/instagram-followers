@@ -25,22 +25,42 @@ const InstagramFollowers = (() => {
     }
 
     /* Get the relationships_and_followers array */
-    const relationships_and_followers = followersJSON['relationships_followers'];
+    const relationships_followers = followersJSON['relationships_followers'];
     
     const followers = [];
     /* Loop through the array and push values to followers */
-    for(let i = 0; i < relationships_and_followers.length; i++){
-      followers.push(relationships_and_followers[i]['string_list_data'][0]['value']);
+    for(let i = 0; i < relationships_followers.length; i++){
+      followers.push(relationships_followers[i]['string_list_data'][0]['value']);
     }
     return followers;
   }
 
+  const _getFollowing = () => {
+      /* Load followers JSON */
+      const followersJSON = _loadJSON(followingFilePath);
+      if(followersJSON === null){
+        console.log('ERROR: JSON file not found');
+        return null;
+      }
+  
+      /* Get the relationships_and_followers array */
+      const relationships_following = followersJSON['relationships_following'];
+      
+      const following = [];
+      /* Loop through the array and push values to followers */
+      for(let i = 0; i < relationships_following.length; i++){
+        following.push(relationships_following[i]['string_list_data'][0]['value']);
+      }
+      return following; 
+  }
+
   const viewNotFollowingBack = () => {
 
-v  }
+  }
 
   return {
     viewNotFollowingBack
   }
 })();
 
+InstagramFollowers.viewNotFollowingBack();
