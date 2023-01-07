@@ -36,31 +36,48 @@ const InstagramFollowers = (() => {
   }
 
   const _getFollowing = () => {
-      /* Load followers JSON */
-      const followersJSON = _loadJSON(followingFilePath);
-      if(followersJSON === null){
-        console.log('ERROR: JSON file not found');
-        return null;
-      }
-  
-      /* Get the relationships_and_followers array */
-      const relationships_following = followersJSON['relationships_following'];
-      
-      const following = [];
-      /* Loop through the array and push values to followers */
-      for(let i = 0; i < relationships_following.length; i++){
-        following.push(relationships_following[i]['string_list_data'][0]['value']);
-      }
-      return following; 
+    /* Load followers JSON */
+    const followersJSON = _loadJSON(followingFilePath);
+    if(followersJSON === null){
+      console.log('ERROR: JSON file not found');
+      return null;
+    }
+
+    /* Get the relationships_and_followers array */
+    const relationships_following = followersJSON['relationships_following'];
+    
+    const following = [];
+    /* Loop through the array and push values to followers */
+    for(let i = 0; i < relationships_following.length; i++){
+      following.push(relationships_following[i]['string_list_data'][0]['value']);
+    }
+    return following; 
   }
 
-  const viewNotFollowingBack = () => {
+  const getNotFollowingBack = () => {
+    /* Get followers and following array */
+    const followers = _getFollowers();
+    const following = _getFollowing();
 
+    const notFollowingBack = [];
+    /* Loop through followers */
+    for(let i = 0; i < following.length; i++){
+      if(!followers.includes(following[i])){
+        notFollowingBack.push(following[i]);
+      }
+    }
+
+    return notFollowingBack;
   }
 
   return {
-    viewNotFollowingBack
+    getNotFollowingBack
   }
 })();
 
-InstagramFollowers.viewNotFollowingBack();
+const notFollowingBack = InstagramFollowers.getNotFollowingBack();
+console.log('The following users are not following you back');
+console.log('----------------------------------------------');
+for(let i = 0; i < notFollowingBack.length; i++){
+  console.log(notFollowingBack[i]);
+}
