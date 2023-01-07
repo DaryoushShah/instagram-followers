@@ -19,3 +19,8 @@ In order to setup this project on your own local machine you must follow these s
 
 ## FAQ
 1) How do I download my Instagram data?
+* Log into your Instagram account on web
+* Click profile
+* Click settings
+* Click Privacy and Security
+* Scroll down to Data Download and click Request Download
